@@ -1,0 +1,62 @@
+{
+  "id": "/windows-test-workload",
+  "acceptedResourceRoles": [
+    "*"
+  ],
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "constraints": [
+    [
+      "os",
+      "LIKE",
+      "windows"
+    ]
+  ],
+  "container": {
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "protocol": "tcp",
+        "servicePort": 80,
+        "name": "http"
+      }
+    ],
+    "type": "DOCKER",
+    "volumes": [],
+    "docker": {
+      "image": "mesosphere/windows-test-workload:latest",
+      "forcePullImage": false,
+      "privileged": false,
+      "parameters": []
+    }
+  },
+  "labels": {
+    "HAPROXY_DEPLOYMENT_GROUP":"DOTNET",
+    "HAPROXY_DEPLOYMENT_ALT_PORT":"10008",
+    "HAPROXY_GROUP":"external",
+    "HAPROXY_0_REDIRECT_TO_HTTPS":"false",
+    "HAPROXY_0_VHOST": "windows-test-workload.com"
+  },
+  "cpus": 1,
+  "disk": 0,
+  "instances": 1,
+  "maxLaunchDelaySeconds": 300,
+  "mem": 1024,
+  "gpus": 0,
+  "networks": [
+    {
+      "mode": "container/bridge"
+    }
+  ],
+  "upgradeStrategy": {
+    "maximumOverCapacity": 1,
+    "minimumHealthCapacity": 1
+  },
+  "killSelection": "YOUNGEST_FIRST",
+  "unreachableStrategy": {
+    "inactiveAfterSeconds": 0,
+    "expungeAfterSeconds": 0
+  },
+  "healthChecks": [],
+  "fetch": []
+}

@@ -1,0 +1,129 @@
+{
+  "env": {
+    "SSH_KNOWN_HOSTS": "github.com",
+    "JENKINS_CONTEXT": "/service/jenkins",
+    "JENKINS_SLAVE_AGENT_PORT": "50000",
+    "JENKINS_AGENT_ROLE": "*",
+    "JVM_OPTS": "-Xms1024m -Xmx1024m",
+    "DCOS_SERVICE_ACCOUNT": "jenkins",
+    "JENKINS_AGENT_USER": "root",
+    "JENKINS_OPTS": "",
+    "JENKINS_FRAMEWORK_NAME": "jenkins",
+    "MARATHON_NAME": "marathon"
+  },
+  "labels": {
+    "DCOS_SERVICE_SCHEME": "http",
+    "DCOS_SERVICE_NAME": "jenkins",
+    "DCOS_SERVICE_PORT_INDEX": "0",
+    "MARATHON_SINGLE_INSTANCE_APP": "true"
+  },
+  "id": "/jenkins",
+  "acceptedResourceRoles": [
+    "*"
+  ],
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "constraints": [
+    [
+      "os",
+      "UNLIKE",
+      "windows"
+    ]
+  ],
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "mesosphere/jenkins:unstable",
+      "forcePullImage": true,
+      "privileged": false,
+      "parameters": []
+    },
+    "volumes": [
+      {
+        "containerPath": "/var/jenkins_home",
+        "hostPath": "/tmp/jenkins",
+        "mode": "RW"
+      }
+    ]
+  },
+  "cpus": 1,
+  "disk": 0,
+  "instances": 1,
+  "maxLaunchDelaySeconds": 300,
+  "mem": 2048,
+  "gpus": 0,
+  "networks": [
+    {
+      "mode": "host"
+    }
+  ],
+  "portDefinitions": [
+    {
+      "name": "nginx",
+      "protocol": "tcp",
+      "port": 10000
+    },
+    {
+      "name": "jenkins",
+      "protocol": "tcp",
+      "port": 10001
+    }
+  ],
+  "requirePorts": false,
+  "upgradeStrategy": {
+    "maximumOverCapacity": 0,
+    "minimumHealthCapacity": 0
+  },
+  "killSelection": "YOUNGEST_FIRST",
+  "unreachableStrategy": {
+    "inactiveAfterSeconds": 0,
+    "expungeAfterSeconds": 0
+  },
+  "role": "slave_public",
+  "tasksStats": {
+    "startedAfterLastScaling": {
+      "stats": {
+        "counts": {
+          "staged": 0,
+          "running": 1,
+          "healthy": 0,
+          "unhealthy": 0
+        },
+        "lifeTime": {
+          "averageSeconds": 453.14,
+          "medianSeconds": 453.14
+        }
+      }
+    },
+    "withLatestConfig": {
+      "stats": {
+        "counts": {
+          "staged": 0,
+          "running": 1,
+          "healthy": 0,
+          "unhealthy": 0
+        },
+        "lifeTime": {
+          "averageSeconds": 453.14,
+          "medianSeconds": 453.14
+        }
+      }
+    },
+    "totalSummary": {
+      "stats": {
+        "counts": {
+          "staged": 0,
+          "running": 1,
+          "healthy": 0,
+          "unhealthy": 0
+        },
+        "lifeTime": {
+          "averageSeconds": 453.14,
+          "medianSeconds": 453.14
+        }
+      }
+    }
+  },
+  "healthChecks": [],
+  "fetch": []
+}
