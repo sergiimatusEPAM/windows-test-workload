@@ -5,7 +5,7 @@
     "JENKINS_SLAVE_AGENT_PORT": "50000",
     "JENKINS_AGENT_ROLE": "*",
     "JVM_OPTS": "-Xms1024m -Xmx1024m",
-    "JENKINS_MESOS_MASTER": "zk://zk-1.zk:2181,zk-2.zk:2181,zk-3.zk:2181,zk-4.zk:2181,zk-5.zk:2181/mesos",
+    "DCOS_SERVICE_ACCOUNT": "jenkins",
     "JENKINS_AGENT_USER": "root",
     "JENKINS_OPTS": "",
     "JENKINS_FRAMEWORK_NAME": "jenkins",
@@ -32,36 +32,22 @@
   ],
   "container": {
     "type": "DOCKER",
+    "docker": {
+      "image": "mesosphere/jenkins:unstable",
+      "forcePullImage": true,
+      "privileged": false,
+      "parameters": []
+    },
     "volumes": [
       {
         "containerPath": "/var/jenkins_home",
         "hostPath": "/tmp/jenkins",
         "mode": "RW"
       }
-    ],
-    "docker": {
-      "image": "mesosphere/jenkins-0.x-windows",
-      "forcePullImage": false,
-      "privileged": false,
-      "parameters": []
-    }
+    ]
   },
   "cpus": 1,
   "disk": 0,
-  "healthChecks": [
-    {
-      "gracePeriodSeconds": 30,
-      "ignoreHttp1xx": false,
-      "intervalSeconds": 60,
-      "maxConsecutiveFailures": 3,
-      "portIndex": 0,
-      "timeoutSeconds": 20,
-      "delaySeconds": 15,
-      "protocol": "HTTP",
-      "path": "/service/jenkins",
-      "ipProtocol": "IPv4"
-    }
-  ],
   "instances": 1,
   "maxLaunchDelaySeconds": 300,
   "mem": 2048,
@@ -93,5 +79,7 @@
     "inactiveAfterSeconds": 0,
     "expungeAfterSeconds": 0
   },
+  "role": "slave_public",
+  "healthChecks": [],
   "fetch": []
 }
