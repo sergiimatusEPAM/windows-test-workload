@@ -31,7 +31,7 @@ ENV ASPNETCORE_URLS=http://+:80 `
     DOTNET_RUNNING_IN_CONTAINER=true
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 # RUN Invoke-WebRequest -OutFile demoapp.zip $env:URL_TO_APP_SNAPSHOT ; `
-RUN Start-Sleep 100; `
+RUN Start-Sleep 3600; `
     Expand-Archive C:/demoapp.zip -DestinationPath demoapp; `
     Remove-Item -Force demoapp.zip  
 WORKDIR /demoapp/target
