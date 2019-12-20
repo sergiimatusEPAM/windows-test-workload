@@ -31,7 +31,7 @@ COPY ["./demoapp.zip", "C:/artifact"]
 #COPY C:\jenkins\worspace\test-build\demoapp.zip /demoapp.zip
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 # RUN Invoke-WebRequest -OutFile demoapp.zip $env:URL_TO_APP_SNAPSHOT ; `
-RUN Start-Sleep 3600; `
+RUN Start-Sleep 100; `
     Expand-Archive C:/artifact/demoapp.zip -DestinationPath demoapp; `
     Remove-Item -Force demoapp.zip  
 WORKDIR /demoapp/target
