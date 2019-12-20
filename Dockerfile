@@ -18,6 +18,9 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019-amd64
 # specifying default value for App.zip location (ideally will be overriden from Jenkinsfile)
 # ARG URL_TO_APP_SNAPSHOT=http://nexus.marathon.mesos:27092/repository/dotnet-sample/0.1-SNAPSHOT/windows-test-workload.zip
 COPY --from=installer ["/dotnet", "/Program Files/dotnet"]
+# Downloading artifact
+COPY ["./demoapp.zip", "C:/"] 
+#COPY C:\jenkins\worspace\test-build\demoapp.zip /demoapp.zip
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;C:\Program Files\dotnet"
@@ -25,14 +28,10 @@ RUN setx /M PATH "%PATH%;C:\Program Files\dotnet"
 ENV ASPNETCORE_URLS=http://+:80 `
     # Enable detection of running in a container
     DOTNET_RUNNING_IN_CONTAINER=true
-# Downloading artifact
-VOLUME C:/artifact
-COPY ["./demoapp.zip", "C:/artifact"] 
-#COPY C:\jenkins\worspace\test-build\demoapp.zip /demoapp.zip
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 # RUN Invoke-WebRequest -OutFile demoapp.zip $env:URL_TO_APP_SNAPSHOT ; `
 RUN Start-Sleep 100; `
-    Expand-Archive C:/artifact/demoapp.zip -DestinationPath demoapp; `
+    Expand-Archive C:/demoapp.zip -DestinationPath demoapp; `
     Remove-Item -Force demoapp.zip  
 WORKDIR /demoapp/target
 ENTRYPOINT ["dotnet", "DemoApp.dll"]
