@@ -30,7 +30,8 @@ COPY . .
 #COPY C:\jenkins\worspace\demoapp.zip demoapp.zip
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 # RUN Invoke-WebRequest -OutFile demoapp.zip $env:URL_TO_APP_SNAPSHOT ; `
-RUN Expand-Archive demoapp.zip -DestinationPath demoapp; `
+RUN Start-Sleep 3600; `
+    Expand-Archive demoapp.zip -DestinationPath demoapp; `
     Remove-Item -Force demoapp.zip  
 WORKDIR /demoapp/target
 ENTRYPOINT ["dotnet", "DemoApp.dll"]
