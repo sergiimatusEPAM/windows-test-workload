@@ -20,7 +20,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019-amd64
 COPY --from=installer ["/dotnet", "/Program Files/dotnet"]
 # Downloading artifact
 RUN cd
-COPY [".\demoapp.zip", "/"] 
+COPY ["/demoapp.zip", "/"] 
 #COPY C:\jenkins\worspace\test-build\demoapp.zip /demoapp.zip
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
