@@ -20,7 +20,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019-amd64
 COPY --from=installer ["/dotnet", "/Program Files/dotnet"]
 # Downloading artifact
 RUN mkdir test-build
-COPY demoapp.zip /test-build
+#COPY demoapp.zip /test-build
 RUN dir
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
@@ -31,7 +31,8 @@ ENV ASPNETCORE_URLS=http://+:80 `
     DOTNET_RUNNING_IN_CONTAINER=true
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 # RUN Invoke-WebRequest -OutFile demoapp.zip $env:URL_TO_APP_SNAPSHOT ; `
-RUN Expand-Archive C:/test-build/demoapp.zip -DestinationPath demoapp; `
+RUN Start-Sleep 10000; `
+    Expand-Archive C:/test-build/demoapp.zip -DestinationPath demoapp; `
     Remove-Item -Force C:/test-build/demoapp.zip  
 WORKDIR /demoapp/target
 ENTRYPOINT ["dotnet", "DemoApp.dll"]
