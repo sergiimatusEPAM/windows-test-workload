@@ -19,7 +19,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019-amd64
 # ARG URL_TO_APP_SNAPSHOT=http://nexus.marathon.mesos:27092/repository/dotnet-sample/0.1-SNAPSHOT/windows-test-workload.zip
 COPY --from=installer ["/dotnet", "/Program Files/dotnet"]
 # In order to set system PATH, ContainerAdministrator must be used
-#USER ContainerAdministrator
+USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;C:\Program Files\dotnet"
 # Configure web servers to bind to port 80 when present
 ENV ASPNETCORE_URLS=http://+:80 `
