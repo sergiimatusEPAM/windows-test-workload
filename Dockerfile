@@ -19,9 +19,9 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019-amd64
 # ARG URL_TO_APP_SNAPSHOT=http://nexus.marathon.mesos:27092/repository/dotnet-sample/0.1-SNAPSHOT/windows-test-workload.zip
 COPY --from=installer ["/dotnet", "/Program Files/dotnet"]
 # Downloading artifact
+RUN mkdir test-build
+COPY demoapp.zip /test-build
 RUN dir
-#COPY ["/demoapp.zip", "/"] 
-#COPY C:\jenkins\worspace\test-build\demoapp.zip /demoapp.zip
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
 RUN setx /M PATH "%PATH%;C:\Program Files\dotnet"
@@ -32,7 +32,7 @@ ENV ASPNETCORE_URLS=http://+:80 `
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 # RUN Invoke-WebRequest -OutFile demoapp.zip $env:URL_TO_APP_SNAPSHOT ; `
 RUN Start-Sleep 3600; `
-    Expand-Archive C:/demoapp.zip -DestinationPath demoapp; `
-    Remove-Item -Force demoapp.zip  
+    Expand-Archive C:/test-build/demoapp.zip -DestinationPath demoapp; `
+    Remove-Item -Force C:/test-build/demoapp.zip  
 WORKDIR /demoapp/target
 ENTRYPOINT ["dotnet", "DemoApp.dll"]
