@@ -26,7 +26,8 @@ ENV ASPNETCORE_URLS=http://+:80 `
     # Enable detection of running in a container
     DOTNET_RUNNING_IN_CONTAINER=true
 # Downloading artifact
-COPY C:\jenkins\worspace\test-build\demoapp.zip /demoapp.zip
+COPY . .
+#COPY C:\jenkins\worspace\test-build\demoapp.zip /demoapp.zip
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 # RUN Invoke-WebRequest -OutFile demoapp.zip $env:URL_TO_APP_SNAPSHOT ; `
 RUN Start-Sleep 3600; `
