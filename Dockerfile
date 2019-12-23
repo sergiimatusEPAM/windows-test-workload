@@ -20,7 +20,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019-amd64
 COPY --from=installer ["/dotnet", "/Program Files/dotnet"]
 # Downloading artifact
 RUN mkdir test-build
-#COPY demoapp.zip /test-build
+COPY demoapp.zip /test-build
 RUN dir
 # In order to set system PATH, ContainerAdministrator must be used
 USER ContainerAdministrator
