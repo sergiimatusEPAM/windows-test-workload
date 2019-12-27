@@ -24,7 +24,7 @@
     "type": "DOCKER",
     "volumes": [],
     "docker": {
-      "image": "sergiimatusepam/windows-test-workload:latest",
+      "image": "sergiimatusepam/testworkload-app:latest",
       "forcePullImage": false,
       "privileged": false,
       "parameters": []
