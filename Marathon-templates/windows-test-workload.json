@@ -24,7 +24,7 @@
     "type": "DOCKER",
     "volumes": [],
     "docker": {
-      "image": "mesosphere/windows-test-workload:latest",
+      "image": "sergiimatusepam/windows-test-workload:latest",
       "forcePullImage": false,
       "privileged": false,
       "parameters": []
