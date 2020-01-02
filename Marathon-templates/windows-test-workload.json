@@ -7,8 +7,8 @@
   "backoffSeconds": 1,
   "constraints": [
     [
-      "os",
-      "LIKE",
+      "@region",
+      "IS",
       "windows"
     ]
   ],
