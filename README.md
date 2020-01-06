@@ -34,5 +34,4 @@ Show case of building a .NET Core application which is using DC/OS, Marathon and
 - Place name of Docker Image which is going to be used to build dotnet application at "Jenkins on Mesos" plugin under `windows` label configuration. I.e. `mesosphere/dotnet-builder`
 
   Go to Manage Jenkins -> Configure System -> follow "Advanced" after "Mesos Cloud" section -> follow "Advanced" after "Use Docker Containerizer" -> Use `mesosphere/dotnet-builder:latest`. Under Mesos Cloud -> Label:Windows -> "Volumes" section -> press "Add Volume" , put Container and Host Path `\\.\pipe\docker_engine`. It requires to support backing docker image in the containerized slave (Docker in Docker on Windows).
-  Jenkins Configuration can be uploaded using Configuration as Code functionality, see example [Marathon-templates/configuration.yaml](https://github.com/dcos/windows-test-workload/blob/master/Marathon-templates/configuration.yaml)
   Also you may use your own image, see [dotnet-builder/DockerFile.jenkins.windows.slave](https://github.com/dcos/windows-test-workload/blob/master/dotnet-builder/DockerFile.jenkins.windows.slave) file for pre-configuration, depending on your needs.
