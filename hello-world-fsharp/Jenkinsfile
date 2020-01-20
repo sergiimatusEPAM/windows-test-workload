@@ -1,6 +1,6 @@
 node('windows') {
   stage("Build") {
     checkout scm
-    bat "dotnet build"
+    bat "dotnet build .\hello-world-fsharp\hello-world-fsharp.fsproj"
   }
 }
